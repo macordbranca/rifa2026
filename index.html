@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rifa 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#07071a;color:#e0e0ff;font-family:'Segoe UI',sans-serif;min-height:100vh}
+.hdr{background:linear-gradient(135deg,#0d0d2e,#1a0a2e);border-bottom:1px solid #2a2a4a;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.htit{font-weight:900;font-size:18px;color:#6c63ff;letter-spacing:2px}
+.hsub{font-size:11px;color:#555;margin-top:2px}
+.st{border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700}
+.sok{background:#0d2818;color:#28a745;border:1px solid #28a74544}
+.sld{background:#2d1b00;color:#ffa500;border:1px solid #ffa50044}
+.ser{background:#2d0d0d;color:#dc3545;border:1px solid #dc354544}
+.tabs{display:flex;border-bottom:1px solid #2a2a4a;background:#0a0a1e}
+.tab{background:none;border:none;border-bottom:2px solid transparent;color:#666;padding:12px 20px;cursor:pointer;font-family:inherit;font-size:13px}
+.tab.on{border-bottom-color:#6c63ff;color:#6c63ff;font-weight:700}
+.wrap{padding:20px;max-width:1200px;margin:0 auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:18px}
+.card{background:#0d0d1a;border-radius:12px;padding:16px;text-align:center}
+.cico{font-size:24px}.cval{font-size:28px;font-weight:800;margin:3px 0}.clbl{font-size:10px;color:#888;letter-spacing:1px;text-transform:uppercase}
+.box{background:#0d0d1a;border:1px solid #2a2a4a;border-radius:12px;padding:18px;margin-bottom:16px}
+.btit{font-size:11px;color:#888;font-weight:600;letter-spacing:1px;margin-bottom:12px}
+.pbg{background:#1a1a2e;border-radius:8px;height:12px;overflow:hidden;margin:7px 0}
+.pf{height:100%;background:linear-gradient(90deg,#6c63ff,#28a745);border-radius:8px;transition:width .8s}
+.mg{display:flex;gap:3px;flex-wrap:wrap}
+.mc{width:14px;height:14px;border-radius:3px;cursor:default;transition:transform .1s}
+.mc:hover{transform:scale(1.7)}
+.ml{display:flex;gap:16px;margin-top:9px;font-size:11px;color:#777}
+.vg{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+.lst{max-height:480px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.bi{background:#0d0d1a;border:1px solid #2a2a4a;border-radius:8px;padding:9px 12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.bi:hover,.bi.sel{background:#1a1a3a;border-color:#6c63ff}
+.bn{font-weight:700;color:#e0e0ff;font-size:13px}
+.bnm{font-size:11px;color:#888;margin-top:1px}
+.bcf{font-size:10px;color:#555;margin-top:1px;font-family:monospace}
+.det{display:flex;flex-direction:column;gap:13px}
+.nr{display:flex;gap:9px;margin-bottom:14px}
+.nb{flex:1;background:#1a1a2e;border-radius:8px;padding:10px;text-align:center;border:1px solid #6c63ff33}
+.nl{font-size:10px;color:#888;margin-bottom:3px}
+.nv{font-weight:900;font-size:22px;color:#a78bfa;font-family:monospace}
+.fld{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
+.fld label{font-size:11px;color:#888;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.fld input{background:#07071a;border:1px solid #2a2a4a;border-radius:6px;padding:8px 10px;color:#e0e0ff;font-size:13px;outline:none;width:100%;font-family:inherit}
+.fld input:focus{border-color:#6c63ff}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.as{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:12px}
+.ast{border-radius:8px;padding:10px;text-align:center}
+.ast .l{font-size:10px;color:#888}.ast .v{font-weight:700;font-size:13px;margin-top:3px}
+.ar{display:flex;justify-content:space-between;background:#1a1a2e;border-radius:6px;padding:7px 10px;font-size:12px}
+.al{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:3px}
+.ain{display:flex;gap:7px;margin-bottom:10px}
+.btn{border:none;border-radius:8px;padding:8px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.btn:hover{opacity:.85}.btn:disabled{opacity:.5;cursor:wait}
+.bp{background:linear-gradient(135deg,#6c63ff,#a855f7);color:#fff}
+.bs{background:linear-gradient(135deg,#28a745,#20c997);color:#fff}
+.bg{background:transparent;color:#6c63ff;border:1px solid #6c63ff}
+.bsm{padding:5px 12px;font-size:12px}
+.bdg{border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;letter-spacing:1px}
+.dl{background:#1a1a2e;color:#6c757d;border:1px solid #6c757d}
+.da{background:#2d1b00;color:#ffa500;border:1px solid #ffa500}
+.dp{background:#0d2818;color:#28a745;border:1px solid #28a745}
+.msg{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-top:7px}
+.mok{background:#0d2818;color:#28a745;border:1px solid #28a74544}
+.mer{background:#2d0d0d;color:#dc3545;border:1px solid #dc354544}
+.fts{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{padding:8px 10px;text-align:left;color:#666;font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #2a2a4a}
+td{padding:8px 10px;border-bottom:1px solid #111}
+tr:hover td{background:#0d0d1a}
+.lc{display:flex;align-items:center;justify-content:center;height:200px;flex-direction:column;gap:12px;color:#666;font-size:14px}
+.hid{display:none!important}
+.aviso{background:#1a1a2e;border:1px solid #6c63ff44;border-radius:10px;padding:14px;margin-bottom:16px;color:#aaa;font-size:13px;line-height:1.6}
+.aviso strong{color:#6c63ff}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="htit">🎰 GESTIÓN DE RIFA</div><div class="hsub">DICIEMBRE 2026 · 333 BOLETAS · $130.000 C/U</div></div>
+  <div id="st" class="st sld">⏳ Cargando...</div>
+</div>
+<div class="tabs">
+  <button class="tab on" onclick="sT('d')">📊 Dashboard</button>
+  <button class="tab"    onclick="sT('v')">🎟️ Ventas</button>
+  <button class="tab"    onclick="sT('r')">📋 Reportes</button>
+</div>
+<div class="wrap">
+  <div id="eb" style="background:#2d0d0d;border:1px solid #dc354544;border-radius:10px;padding:14px;margin-bottom:16px;color:#dc3545;font-size:13px" class="hid"></div>
+
+  <!-- DASHBOARD -->
+  <div id="td">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button class="btn bg bsm" onclick="load()">🔄 Actualizar</button>
+    </div>
+    <div class="cards">
+      <div class="card" style="border-left:3px solid #6c63ff"><div class="cico">🎟️</div><div class="cval" style="color:#6c63ff">333</div><div class="clbl">Total</div></div>
+      <div class="card" style="border-left:3px solid #ffa500"><div class="cico">👤</div><div class="cval" style="color:#ffa500" id="cv">—</div><div class="clbl">Vendidas</div></div>
+      <div class="card" style="border-left:3px solid #28a745"><div class="cico">✅</div><div class="cval" style="color:#28a745" id="cp">—</div><div class="clbl">Pagadas</div></div>
+      <div class="card" style="border-left:3px solid #6c757d"><div class="cico">⭕</div><div class="cval" style="color:#6c757d" id="cl">—</div><div class="clbl">Libres</div></div>
+    </div>
+    <div class="box">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+        <span style="color:#aaa;font-size:13px;font-weight:600">💰 RECAUDO TOTAL</span>
+        <span style="color:#28a745;font-weight:800;font-size:15px" id="rec">—</span>
+      </div>
+      <div class="pbg"><div class="pf" id="pb" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#666;margin-top:4px">
+        <span id="pct">0%</span><span>Meta: $43.290.000</span>
+      </div>
+      <div style="margin-top:8px;font-size:13px;color:#888">Por cobrar: <span style="color:#ffa500;font-weight:700" id="poc">—</span></div>
+    </div>
+    <div class="box">
+      <div class="btit">🗺️ MAPA DE BOLETAS</div>
+      <div class="mg" id="mg"></div>
+      <div class="ml"><span>🟩 Pagada</span><span>🟧 Abono</span><span style="color:#3a3a5a">⬛ Libre</span></div>
+    </div>
+  </div>
+
+  <!-- VENTAS -->
+  <div id="tv" class="hid">
+    <div class="aviso">
+      ℹ️ Para guardar datos usa el <strong>Apps Script</strong>. Esta app lee desde Google Sheets en tiempo real. Los cambios que guardes aparecerán al actualizar.
+    </div>
+    <div class="vg">
+      <div>
+        <div class="fld"><label>Buscar boleta / nombre / cédula</label>
+          <input type="text" id="bv" placeholder="0001 · Juan García · 123456..." oninput="fl()"></div>
+        <div class="lst" id="bl"></div>
+      </div>
+      <div id="dp"><div class="lc"><span style="font-size:32px">👈</span><span>Selecciona una boleta</span></div></div>
+    </div>
+  </div>
+
+  <!-- REPORTES -->
+  <div id="tr" class="hid">
+    <div class="fts" id="fbt">
+      <button class="btn bp bsm" onclick="sf('todas',this)">Todas</button>
+      <button class="btn bg bsm" onclick="sf('vendidas',this)">Vendidas</button>
+      <button class="btn bg bsm" onclick="sf('pagada',this)">Pagadas</button>
+      <button class="btn bg bsm" onclick="sf('abono',this)">En abono</button>
+      <button class="btn bg bsm" onclick="sf('libre',this)">Libres</button>
+      <button class="btn bs bsm" style="margin-left:auto" onclick="eC()">⬇️ CSV</button>
+    </div>
+    <div class="fld" style="margin-bottom:8px">
+      <input type="text" id="br" placeholder="Buscar en resultados..." oninput="rt()"></div>
+    <div id="cnt" style="font-size:12px;color:#666;margin-bottom:7px"></div>
+    <div style="overflow-x:auto">
+      <table><thead><tr>
+        <th>Boleta</th><th>Números</th><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Ciudad</th><th>Estado</th><th>Abonado</th><th>Saldo</th>
+      </tr></thead><tbody id="tb"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIGURACIÓN ──────────────────────────────────────────
+const SHEET_ID   = "1PHAi_AfYejz5MXJPYCC5sivIl3w6avULE6WMUxsvzrg";
+const SHEET_NAME = "Boletas";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoboduGuD23Tt4ndEXobNSMa7wi7Gq8T7pSHLnId862f57_L17P28zgrKyOweCCkvNcA/exec";
+const PRECIO     = 130000;
+
+let DATA=[],SEL=null,FIL='todas';
+const fmt=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(n);
+function ca(b){let t=0;for(let i=1;i<=20;i++){const v=parseFloat(b['abono'+i]||0);if(!isNaN(v))t+=v;}return t;}
+function est(b){if(!b.nombre)return'libre';return ca(b)>=PRECIO?'pagada':'abono';}
+function bdg(e){const m={libre:'Libre',abono:'Abono',pagada:'Pagada'},c={libre:'dl',abono:'da',pagada:'dp'};return'<span class="bdg '+c[e]+'">'+m[e]+'</span>';}
+function setSt(c,t){const el=document.getElementById('st');el.className='st '+c;el.textContent=t;}
+function showE(m){const el=document.getElementById('eb');el.textContent='⚠️ '+m;el.classList.remove('hid');}
+function hideE(){document.getElementById('eb').classList.add('hid');}
+
+// ── Leer datos desde Google Sheets vía CSV público ─────────
+async function load(){
+  setSt('sld','⏳ Cargando...');
+  try{
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+    const res = await fetch(url);
+    const txt = await res.text();
+    DATA = parseCSV(txt);
+    setSt('sok','● Conectado');
+    hideE();
+    ui();
+  }catch(e){
+    setSt('ser','● Error');
+    showE('No se pudo cargar: '+e.message);
+  }
+}
+
+function parseCSV(txt){
+  const lines = txt.trim().split('\n');
+  const headers = parseRow(lines[0]).map(h=>h.toLowerCase().replace(/\s/g,''));
+  return lines.slice(1).map(line=>{
+    const vals = parseRow(line);
+    const obj  = {};
+    headers.forEach((h,i)=>obj[h]=(vals[i]||'').trim());
+    return obj;
+  }).filter(r=>r.boleta);
+}
+
+function parseRow(line){
+  const result=[],re=/("(?:[^"]|"")*"|[^,]*),?/g;
+  let m;
+  while((m=re.exec(line))!==null){
+    if(m.index===re.lastIndex)re.lastIndex++;
+    if(m[1]!==undefined)result.push(m[1].replace(/^"|"$/g,'').replace(/""/g,'"'));
+  }
+  return result;
+}
+
+// ── Guardar via Apps Script ────────────────────────────────
+function apiCall(params){
+  return new Promise((resolve,reject)=>{
+    const cb='cb_'+Date.now();
+    const qs=new URLSearchParams({...params,callback:cb}).toString();
+    const sc=document.createElement('script');
+    const tid=setTimeout(()=>{cleanup();reject(new Error('Tiempo agotado'));},15000);
+    window[cb]=d=>{cleanup();resolve(d);};
+    sc.onerror=()=>{cleanup();reject(new Error('Error de red'));};
+    function cleanup(){clearTimeout(tid);delete window[cb];sc.remove();}
+    sc.src=SCRIPT_URL+'?'+qs;
+    document.head.appendChild(sc);
+  });
+}
+
+// ── UI Dashboard ───────────────────────────────────────────
+function ui(){
+  const lib=DATA.filter(b=>est(b)==='libre').length;
+  const abo=DATA.filter(b=>est(b)==='abono').length;
+  const pag=DATA.filter(b=>est(b)==='pagada').length;
+  const rec=DATA.reduce((s,b)=>s+ca(b),0);
+  const meta=333*PRECIO,pct=Math.min(100,Math.round(rec/meta*100));
+  document.getElementById('cv').textContent=abo+pag;
+  document.getElementById('cp').textContent=pag;
+  document.getElementById('cl').textContent=lib;
+  document.getElementById('rec').textContent=fmt(rec);
+  document.getElementById('pb').style.width=pct+'%';
+  document.getElementById('pct').textContent=pct+'% de la meta';
+  document.getElementById('poc').textContent=fmt(Math.max(0,meta-rec));
+  const g=document.getElementById('mg');g.innerHTML='';
+  DATA.forEach(b=>{
+    const e=est(b),c=e==='pagada'?'#28a745':e==='abono'?'#ffa500':'#2a2a3a';
+    const d=document.createElement('div');d.className='mc';d.style.background=c;
+    d.title='#'+b.boleta+(b.nombre?' — '+b.nombre:' — Libre');g.appendChild(d);
+  });
+  fl();rt();if(SEL)rd();
+}
+
+function sT(n){
+  ['d','v','r'].forEach(t=>document.getElementById('t'+t).classList.toggle('hid',t!==n));
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',['d','v','r'][i]===n));
+}
+
+// ── Ventas ─────────────────────────────────────────────────
+function fl(){
+  const q=document.getElementById('bv').value.toLowerCase();
+  const list=DATA.filter(b=>b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q)).slice(0,30);
+  const c=document.getElementById('bl');
+  c.innerHTML=list.length?'':'<div style="color:#555;text-align:center;padding:16px;font-size:13px">Sin resultados</div>';
+  list.forEach(b=>{
+    const e=est(b),d=document.createElement('div');
+    d.className='bi'+(SEL?.boleta===b.boleta?' sel':'');
+    d.innerHTML='<div><div class="bn">#'+b.boleta+'</div><div class="bnm">'+(b.nombre||'Sin vender')+'</div><div class="bcf">'+b.num1+' · '+b.num2+' · '+b.num3+'</div></div>'+bdg(e);
+    d.onclick=()=>{SEL=b;fl();rd();};c.appendChild(d);
+  });
+}
+
+function rd(){
+  const b=DATA.find(x=>x.boleta===SEL?.boleta);if(!b)return;
+  const tot=ca(b),saldo=PRECIO-tot,e=est(b);
+  let ah='',hay=false;
+  for(let i=1;i<=20;i++){
+    const v=b['abono'+i];
+    if(v&&v!==''){hay=true;const f=b['fechaabono'+i]||'—';
+      ah+='<div class="ar"><span style="color:#888">Abono '+i+' — '+f+'</span><span style="color:#28a745;font-weight:700">'+fmt(parseFloat(v))+'</span></div>';}
+  }
+  if(!hay)ah='<div style="color:#555;font-size:12px;text-align:center;padding:9px">Sin abonos</div>';
+  document.getElementById('dp').innerHTML=
+    '<div class="det">'+
+    '<div class="box">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px">'+
+    '<span style="font-weight:900;font-size:18px;color:#6c63ff">Boleta #'+b.boleta+'</span>'+bdg(e)+'</div>'+
+    '<div class="nr">'+[b.num1,b.num2,b.num3].map((n,i)=>'<div class="nb"><div class="nl">Oportunidad '+(i+1)+'</div><div class="nv">'+n+'</div></div>').join('')+'</div>'+
+    '<div class="fld"><label>Nombre completo</label><input id="fn" value="'+(b.nombre||'')+'" placeholder="Nombre del comprador"></div>'+
+    '<div class="r2">'+
+    '<div class="fld"><label>Cédula</label><input id="fc" value="'+(b.cedula||'')+'" placeholder="123456789"></div>'+
+    '<div class="fld"><label>Teléfono</label><input id="ft" value="'+(b.telefono||'')+'" placeholder="3001234567"></div>'+
+    '</div>'+
+    '<div class="r2">'+
+    '<div class="fld"><label>Ciudad</label><input id="fci" value="'+(b.ciudad||'')+'" placeholder="Cali"></div>'+
+    '<div class="fld"><label>Dirección</label><input id="fd" value="'+(b.direccion||'')+'" placeholder="Dirección"></div>'+
+    '</div>'+
+    '<button class="btn bp" style="width:100%;margin-top:3px" id="bg" onclick="gd()">💾 Guardar datos</button>'+
+    '</div>'+
+    '<div class="box">'+
+    '<div class="btit">💵 REGISTRO DE ABONOS</div>'+
+    '<div class="as">'+
+    '<div class="ast" style="background:#1a1a2e"><div class="l">Precio</div><div class="v" style="color:#e0e0ff">'+fmt(PRECIO)+'</div></div>'+
+    '<div class="ast" style="background:#0d2818"><div class="l">Abonado</div><div class="v" style="color:#28a745">'+fmt(tot)+'</div></div>'+
+    '<div class="ast" style="background:'+(saldo<=0?'#0d2818':'#2d1b00')+'"><div class="l">Saldo</div>'+
+    '<div class="v" style="color:'+(saldo<=0?'#28a745':'#ffa500')+'">'+(saldo<=0?'✅ PAGADA':fmt(saldo))+'</div></div>'+
+    '</div>'+
+    (saldo>0?'<div class="ain"><div class="fld" style="flex:1;margin:0"><input id="av" type="number" placeholder="Valor del abono $"></div><button class="btn bs" id="bab" onclick="ra()">+ Registrar</button></div>':'')+
+    '<div class="al">'+ah+'</div>'+
+    '</div>'+
+    '<div id="md"></div></div>';
+}
+
+function sm(t,x){const el=document.getElementById('md');if(el){el.innerHTML='<div class="msg m'+t+'">'+x+'</div>';setTimeout(()=>{if(el)el.innerHTML=''},5000);}}
+
+async function gd(){
+  const n=document.getElementById('fn').value.trim();
+  if(!n){sm('er','El nombre es obligatorio');return;}
+  const b=document.getElementById('bg');b.disabled=true;b.textContent='⏳ Guardando...';
+  try{
+    const res=await apiCall({
+      action:'updateBoleta',boleta:SEL.boleta,
+      nombre:n,
+      cedula:document.getElementById('fc').value,
+      telefono:document.getElementById('ft').value,
+      ciudad:document.getElementById('fci').value,
+      direccion:document.getElementById('fd').value
+    });
+    if(res.ok){sm('ok','✅ Guardado. Actualizando...');await load();}
+    else sm('er','❌ '+res.error);
+  }catch(e){sm('er','❌ '+e.message);}
+  const b2=document.getElementById('bg');if(b2){b2.disabled=false;b2.textContent='💾 Guardar datos';}
+}
+
+async function ra(){
+  const v=parseFloat(document.getElementById('av')?.value);
+  if(isNaN(v)||v<=0){sm('er','Ingresa un valor válido');return;}
+  const b=document.getElementById('bab');if(b){b.disabled=true;b.textContent='⏳...';}
+  try{
+    const f=new Date().toLocaleDateString('es-CO');
+    const res=await apiCall({action:'addAbono',boleta:SEL.boleta,valor:v,fecha:f});
+    if(res.ok){sm('ok','✅ Abono de '+fmt(v)+' registrado');await load();}
+    else sm('er','❌ '+res.error);
+  }catch(e){sm('er','❌ '+e.message);}
+  const b2=document.getElementById('bab');if(b2){b2.disabled=false;b2.textContent='+ Registrar';}
+}
+
+// ── Reportes ───────────────────────────────────────────────
+function sf(f,btn){
+  FIL=f;
+  document.querySelectorAll('#fbt .btn:not(.bs)').forEach(b=>b.className='btn bg bsm');
+  if(btn)btn.className='btn bp bsm';
+  rt();
+}
+
+function rt(){
+  const q=(document.getElementById('br')?.value||'').toLowerCase();
+  const rows=DATA.filter(b=>{
+    const e=est(b);
+    const okF=FIL==='todas'?true:FIL==='vendidas'?e!=='libre':e===FIL;
+    const okQ=!q||b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q);
+    return okF&&okQ;
+  });
+  document.getElementById('cnt').textContent=rows.length+' boletas';
+  document.getElementById('tb').innerHTML=rows.map(b=>{
+    const tot=ca(b),saldo=PRECIO-tot,e=est(b);
+    return '<tr>'+
+      '<td style="font-weight:700;color:#6c63ff;font-family:monospace">#'+b.boleta+'</td>'+
+      '<td style="color:#a78bfa;font-family:monospace;font-size:11px">'+b.num1+'·'+b.num2+'·'+b.num3+'</td>'+
+      '<td style="color:#e0e0ff">'+(b.nombre||'<span style="color:#333">—</span>')+'</td>'+
+      '<td style="color:#aaa">'+(b.cedula||'—')+'</td>'+
+      '<td style="color:#aaa">'+(b.telefono||'—')+'</td>'+
+      '<td style="color:#aaa">'+(b.ciudad||'—')+'</td>'+
+      '<td>'+bdg(e)+'</td>'+
+      '<td style="color:#28a745;font-weight:700">'+(tot>0?fmt(tot):'—')+'</td>'+
+      '<td style="color:'+(tot>=PRECIO?'#28a745':tot>0?'#ffa500':'#555')+';font-weight:700">'+
+      (tot>=PRECIO?'✅ Pagada':tot>0?fmt(saldo):'—')+'</td></tr>';
+  }).join('');
+}
+
+function eC(){
+  const q=(document.getElementById('br')?.value||'').toLowerCase();
+  const rows=DATA.filter(b=>{
+    const e=est(b);
+    const okF=FIL==='todas'?true:FIL==='vendidas'?e!=='libre':e===FIL;
+    const okQ=!q||b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q);
+    return okF&&okQ;
+  });
+  const h=['Boleta','Num1','Num2','Num3','Nombre','Cédula','Teléfono','Ciudad','Dirección','Estado','Total Abonado','Saldo'];
+  const csv=[h,...rows.map(b=>{const t=ca(b);return[b.boleta,b.num1,b.num2,b.num3,b.nombre,b.cedula,b.telefono,b.ciudad,b.direccion,est(b),t,Math.max(0,PRECIO-t)];})].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='rifa_'+new Date().toLocaleDateString('es-CO').replace(/\//g,'-')+'.csv';
+  a.click();
+}
+
+load();
+</script>
+</body>
+</html>
