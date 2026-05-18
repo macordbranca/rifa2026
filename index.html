@@ -254,7 +254,7 @@ function sT(n){
 // ── Ventas ─────────────────────────────────────────────────
 function fl(){
   const q=document.getElementById('bv').value.toLowerCase();
-  const list=DATA.filter(b=>b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q)).slice(0,30);
+  const list=DATA.filter(b=>b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q));
   const c=document.getElementById('bl');
   c.innerHTML=list.length?'':'<div style="color:#555;text-align:center;padding:16px;font-size:13px">Sin resultados</div>';
   list.forEach(b=>{
@@ -388,6 +388,11 @@ function eC(){
   a.download='rifa_'+new Date().toLocaleDateString('es-CO').replace(/\//g,'-')+'.csv';
   a.click();
 }
+
+load();
+</script>
+</body>
+</html>
 
 load();
 </script>
