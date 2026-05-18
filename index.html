@@ -254,7 +254,7 @@ function sT(n){
 // ── Ventas ─────────────────────────────────────────────────
 function fl(){
   const q=document.getElementById('bv').value.toLowerCase();
-  const list=DATA.filter(b=>b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q));
+  const list=DATA.filter(b=>b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q)||b.num1?.includes(q)||b.num2?.includes(q)||b.num3?.includes(q));
   const c=document.getElementById('bl');
   c.innerHTML=list.length?'':'<div style="color:#555;text-align:center;padding:16px;font-size:13px">Sin resultados</div>';
   list.forEach(b=>{
@@ -353,7 +353,7 @@ function rt(){
   const rows=DATA.filter(b=>{
     const e=est(b);
     const okF=FIL==='todas'?true:FIL==='vendidas'?e!=='libre':e===FIL;
-    const okQ=!q||b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q);
+    const okQ=!q||b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q)||b.num1?.includes(q)||b.num2?.includes(q)||b.num3?.includes(q);
     return okF&&okQ;
   });
   document.getElementById('cnt').textContent=rows.length+' boletas';
@@ -394,7 +394,3 @@ load();
 </body>
 </html>
 
-load();
-</script>
-</body>
-</html>
