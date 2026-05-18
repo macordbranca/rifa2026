@@ -378,7 +378,7 @@ function eC(){
   const rows=DATA.filter(b=>{
     const e=est(b);
     const okF=FIL==='todas'?true:FIL==='vendidas'?e!=='libre':e===FIL;
-    const okQ=!q||b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q);
+    const okQ=!q||b.boleta?.includes(q)||b.nombre?.toLowerCase().includes(q)||b.cedula?.includes(q)||b.num1?.includes(q)||b.num2?.includes(q)||b.num3?.includes(q);
     return okF&&okQ;
   });
   const h=['Boleta','Num1','Num2','Num3','Nombre','Cédula','Teléfono','Ciudad','Dirección','Estado','Total Abonado','Saldo'];
