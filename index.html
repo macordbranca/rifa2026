@@ -77,6 +77,8 @@ tr:hover td{background:#0d0d1a}
 </style>
 </head>
 <body>
+<!-- LOGIN SCREEN -->
+<div id="login" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#07071a;display:flex;align-items:center;justify-content:center;z-index:9999"><div style="background:#0d0d1a;border:1px solid #2a2a4a;border-radius:16px;padding:40px;width:100%;max-width:380px;text-align:center"><div style="font-size:48px;margin-bottom:16px">🎰</div><div style="font-weight:900;font-size:22px;color:#6c63ff;letter-spacing:2px;margin-bottom:6px">RIFA 2026</div><div style="font-size:12px;color:#555;margin-bottom:32px;letter-spacing:1px">ACCESO ADMINISTRADORES</div><div style="display:flex;flex-direction:column;gap:12px"><input id="pwd" type="password" placeholder="Contraseña" onkeydown="if(event.key==='Enter')chk()" style="background:#07071a;border:1px solid #2a2a4a;border-radius:8px;padding:12px 16px;color:#e0e0ff;font-size:15px;outline:none;width:100%;font-family:inherit;text-align:center;letter-spacing:2px"><button onclick="chk()" style="background:linear-gradient(135deg,#6c63ff,#a855f7);color:#fff;border:none;border-radius:8px;padding:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit">Entrar</button></div><div id="errl" style="color:#dc3545;font-size:13px;margin-top:12px;min-height:20px"></div></div></div>
 <div class="hdr">
   <div><div class="htit">🎰 GESTIÓN DE RIFA</div><div class="hsub">DICIEMBRE 2026 · 333 BOLETAS · $130.000 C/U</div></div>
   <div id="st" class="st sld">⏳ Cargando...</div>
@@ -396,9 +398,25 @@ function eC(){
   a.click();
 }
 
-load();
+function chk(){
+  const v=document.getElementById('pwd').value;
+  if(v==='Encasadeherrerocxp'){
+    document.getElementById('login').style.display='none';
+    sessionStorage.setItem('rifa_auth','1');
+    load();
+  } else {
+    document.getElementById('errl').textContent='Contraseña incorrecta';
+    document.getElementById('pwd').value='';
+    document.getElementById('pwd').focus();
+    setTimeout(()=>document.getElementById('errl').textContent='',2000);
+  }
+}
+// Verificar si ya está autenticado en esta sesión
+if(sessionStorage.getItem('rifa_auth')==='1'){
+  document.getElementById('login').style.display='none';
+  load();
+}
+// Si no está autenticado, esperar que ingrese contraseña (no llamar load() automáticamente)
 </script>
 </body>
 </html>
-
-
