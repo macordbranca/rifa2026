@@ -312,7 +312,64 @@ function rd(){
     (saldo>0?'<div class="ain"><div class="fld" style="flex:1;margin:0"><input id="av" type="number" placeholder="Valor del abono $"></div><button class="btn bs" id="bab" onclick="ra()">+ Registrar</button></div>':'')+
     '<div class="al">'+ah+'</div>'+
     '</div>'+
-    '<div id="md"></div></div>';
+    '<div id="md"></div>'+
+    (b.telefono?'<div style="margin-top:10px"><button class="btn" style="width:100%;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;font-size:13px;padding:10px;border-radius:8px" onclick="wa()">📱 Enviar recordatorio WhatsApp</button></div>':'')+
+    '</div>';
+}
+
+// ── Premios parciales ──────────────────────────────────────
+const PREMIOS=[
+  {fecha:'25 de julio de 2026',     nombre:'1er Premio',  monto:1000000, requisito:'un abono mínimo de $50.000',    minAbono:50000,  minTotal:50000,  tipo:'minAbono'},
+  {fecha:'26 de septiembre de 2026',nombre:'2do Premio', monto:1000000, requisito:'un abono acumulado de $100.000', minAbono:0,      minTotal:100000, tipo:'minTotal'},
+  {fecha:'21 de noviembre de 2026', nombre:'3er Premio', monto:1000000, requisito:'boleta totalmente cancelada',    minAbono:0,      minTotal:130000, tipo:'cancelada'},
+];
+
+function proximoPremio(){
+  const hoy=new Date();
+  for(const p of PREMIOS){
+    const partes=p.fecha.split(' de ');
+    const meses={enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,octubre:9,noviembre:10,diciembre:11};
+    const d=new Date(parseInt(partes[2]),meses[partes[1].toLowerCase()],parseInt(partes[0]));
+    if(d>=hoy) return p;
+  }
+  return PREMIOS[PREMIOS.length-1];
+}
+
+function wa(){
+  const b=DATA.find(x=>x.boleta===SEL?.boleta);if(!b||!b.telefono)return;
+  const tot=ca(b);
+  const p=proximoPremio();
+  const fmtN=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(n);
+
+  let estado='';
+  if(p.tipo==='minAbono'){
+    const ultimo=Array.from({length:20},(_,i)=>parseFloat(b['abono'+(i+1)]||0)).filter(v=>v>0).pop()||0;
+    if(ultimo>=p.minAbono) estado='✅ Ya cumple el requisito para participar.';
+    else estado='⚠️ Le falta realizar un abono mínimo de '+fmtN(p.minAbono)+'.';
+  } else if(p.tipo==='minTotal'){
+    if(tot>=p.minTotal) estado='✅ Ya cumple el requisito para participar.';
+    else estado='⚠️ Lleva abonado '+fmtN(tot)+' y le falta '+fmtN(p.minTotal-tot)+' para participar.';
+  } else {
+    const saldo=130000-tot;
+    if(saldo<=0) estado='✅ Su boleta está cancelada y puede participar.';
+    else estado='⚠️ Le falta '+fmtN(saldo)+' para cancelar la boleta y participar.';
+  }
+
+  const nombre=b.nombre||'cliente';
+  const msg=
+    'Hola Sr(a). '+nombre+', le saludamos de parte de la *Rifa Diciembre 2026*.\n\n'+
+    '📅 El próximo *'+p.fecha+'* realizamos el sorteo del *'+p.nombre+' de '+fmtN(p.monto)+'* con la *Lotería de Boyacá*.\n\n'+
+    '🎟️ Su boleta es la *#'+b.boleta+'* con números: *'+b.num1+' · '+b.num2+' · '+b.num3+'*.\n\n'+
+    '💰 Para participar necesita '+p.requisito+'.\n\n'+
+    estado+'\n\n'+
+    '¡Gracias por su apoyo y mucha suerte! 🍀';
+
+  // Formatear teléfono — agregar 57 si es colombiano
+  let tel=b.telefono.replace(/\D/g,'');
+  if(tel.length===10&&tel.startsWith('3')) tel='57'+tel;
+
+  const url='https://wa.me/'+tel+'?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
 }
 
 function sm(t,x){const el=document.getElementById('md');if(el){el.innerHTML='<div class="msg m'+t+'">'+x+'</div>';setTimeout(()=>{if(el)el.innerHTML=''},5000);}}
