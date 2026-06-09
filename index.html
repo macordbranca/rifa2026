@@ -313,7 +313,7 @@ function rd(){
     '<div class="al">'+ah+'</div>'+
     '</div>'+
     '<div id="md"></div>'+
-    (b.telefono?'<div style="margin-top:10px"><button class="btn" style="width:100%;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;font-size:13px;padding:10px;border-radius:8px" onclick="wa()">📱 Enviar recordatorio WhatsApp</button></div>':'')+
+    '<div style="margin-top:10px"><button class="btn" style="width:100%;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;font-size:13px;padding:10px;border-radius:8px" onclick="wa()">📱 Enviar recordatorio WhatsApp</button></div>'+
     '</div>';
 }
 
@@ -336,7 +336,10 @@ function proximoPremio(){
 }
 
 function wa(){
-  const b=DATA.find(x=>x.boleta===SEL?.boleta);if(!b||!b.telefono)return;
+  const b=DATA.find(x=>x.boleta===SEL?.boleta);if(!b)return;
+  // Leer teléfono del campo visible en pantalla
+  const telCampo=document.getElementById('ft')?.value||b.telefono||'';
+  if(!telCampo){alert('Esta boleta no tiene teléfono registrado. Guarda primero los datos del comprador.');return;}
   const tot=ca(b);
   const p=proximoPremio();
   const fmtN=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(n);
@@ -365,7 +368,7 @@ function wa(){
     '¡Gracias por su apoyo y mucha suerte! 🍀';
 
   // Formatear teléfono — agregar 57 si es colombiano
-  let tel=b.telefono.replace(/\D/g,'');
+  let tel=telCampo.replace(/\D/g,'');
   if(tel.length===10&&tel.startsWith('3')) tel='57'+tel;
 
   const url='https://wa.me/'+tel+'?text='+encodeURIComponent(msg);
