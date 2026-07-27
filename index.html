@@ -439,21 +439,16 @@ function rt(){
       '<td style="color:#28a745;font-weight:700">'+(tot>0?fmt(tot):'—')+'</td>'+
       '<td style="color:'+(tot>=PRECIO?'#28a745':tot>0?'#ffa500':'#555')+';font-weight:700">'+
       (tot>=PRECIO?'✅ Pagada':tot>0?fmt(saldo):'—')+'</td>'+
-      '<td>'+(b.telefono?'<button onclick="waMasivo(''+b.telefono+'',''+b.nombre+'')" style="background:#25d366;border:none;border-radius:6px;padding:5px 10px;color:#fff;cursor:pointer;font-size:16px" title="Enviar WhatsApp">📱</button>':'—')+'</td>'+
+      '<td>'+(b.telefono?'<button onclick="enviarWA(this)" data-tel="'+b.telefono+'" style="background:#25d366;border:none;border-radius:6px;padding:5px 10px;color:#fff;cursor:pointer;font-size:16px">📱</button>':'—')+'</td>'+
       '</tr>';
   }).join('');
 }
 
-function waMasivo(telefono, nombre){
-  const msg=
-    'Muy buenas noches, ayer se jugó el primer premio de $1.000.000 de la Gran Rifa Navideña 2026. '+
-    'Las tres últimas cifras de la Lotería de Boyacá cayeron en 672. '+
-    'Dado que no hubo ganador, se repetirá este sorteo el 29 de agosto de 2026 con la misma lotería. '+
-    'Así mantenemos la integridad de los premios ofrecidos en la rifa. '+
-    'Muchas gracias por participar y les deseamos la mejor de las suertes 🍀';
-  let tel=telefono.replace(/\D/g,'');
-  if(tel.length===10&&tel.startsWith('3')) tel='57'+tel;
-  window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(msg),'_blank');
+function enviarWA(btn){
+  var tel = btn.getAttribute("data-tel").replace(/[^0-9]/g,"");
+  if(tel.length===10 && tel.charAt(0)==="3") tel="57"+tel;
+  var msg = "Muy buenas noches, ayer se jugo el primer premio de $1.000.000 de la Gran Rifa Navidena 2026. Las tres ultimas cifras de la Loteria de Boyaca cayeron en 672. Dado que no hubo ganador, se repetira este sorteo el 29 de agosto de 2026 con la misma loteria. Asi mantenemos la integridad de los premios ofrecidos en la rifa. Muchas gracias por participar y les deseamos la mejor de las suertes";
+  window.open("https://wa.me/"+tel+"?text="+encodeURIComponent(msg),"_blank");
 }
 
 function eC(){
