@@ -150,7 +150,7 @@ tr:hover td{background:#0d0d1a}
     <div id="cnt" style="font-size:12px;color:#666;margin-bottom:7px"></div>
     <div style="overflow-x:auto">
       <table><thead><tr>
-        <th>Boleta</th><th>Números</th><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Ciudad</th><th>Estado</th><th>Abonado</th><th>Saldo</th>
+        <th>Boleta</th><th>Números</th><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Ciudad</th><th>Estado</th><th>Abonado</th><th>Saldo</th><th>WA</th>
       </tr></thead><tbody id="tb"></tbody></table>
     </div>
   </div>
@@ -360,7 +360,7 @@ function wa(){
 
   const nombre=b.nombre||'cliente';
   const msg=
-    'Hola Sr(a). '+nombre+', le saludamos de parte de la *Gran Rifa Navideña 2026*.\n\n'+
+    'Hola Sr(a). '+nombre+', le saludamos de parte de la *Rifa Diciembre 2026*.\n\n'+
     '📅 El próximo *'+p.fecha+'* realizamos el sorteo del *'+p.nombre+' de '+fmtN(p.monto)+'* con la *Lotería de Boyacá*.\n\n'+
     '🎟️ Su boleta es la *#'+b.boleta+'* con números: *'+b.num1+' · '+b.num2+' · '+b.num3+'*.\n\n'+
     '💰 Para participar necesita '+p.requisito+'.\n\n'+
@@ -438,8 +438,17 @@ function rt(){
       '<td>'+bdg(e)+'</td>'+
       '<td style="color:#28a745;font-weight:700">'+(tot>0?fmt(tot):'—')+'</td>'+
       '<td style="color:'+(tot>=PRECIO?'#28a745':tot>0?'#ffa500':'#555')+';font-weight:700">'+
-      (tot>=PRECIO?'✅ Pagada':tot>0?fmt(saldo):'—')+'</td></tr>';
+      (tot>=PRECIO?'✅ Pagada':tot>0?fmt(saldo):'—')+'</td>'+
+      '<td>'+(b.telefono?'<button onclick="enviarWA(this)" data-tel="'+b.telefono+'" style="background:#25d366;border:none;border-radius:6px;padding:5px 10px;color:#fff;cursor:pointer;font-size:16px">📱</button>':'—')+'</td>'+
+      '</tr>';
   }).join('');
+}
+
+function enviarWA(btn){
+  var tel = btn.getAttribute("data-tel").replace(/[^0-9]/g,"");
+  if(tel.length===10 && tel.charAt(0)==="3") tel="57"+tel;
+  var msg = "Muy buenas noches, ayer se jugo el primer premio de $1.000.000 de la Gran Rifa Navidena 2026. Las tres ultimas cifras de la Loteria de Boyaca cayeron en 672. Dado que no hubo ganador, se repetira este sorteo el 29 de agosto de 2026 con la misma loteria. Asi mantenemos la integridad de los premios ofrecidos en la rifa. Muchas gracias por participar y les deseamos la mejor de las suertes";
+  window.open("https://wa.me/"+tel+"?text="+encodeURIComponent(msg),"_blank");
 }
 
 function eC(){
