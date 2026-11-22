@@ -447,7 +447,7 @@ function rt(){
 function enviarWA(btn){
   var tel = btn.getAttribute("data-tel").replace(/[^0-9]/g,"");
   if(tel.length===10 && tel.charAt(0)==="3") tel="57"+tel;
-  var msg = "Muy buenas tardes, por error involuntario se había mencionado que el próximo sorteo de la Gran Rifa Navideña del acumulado de $2.000.000 se haría mañana 24 de octubre de 2026. Corregimos e informamos conforme a los tiempos señalados en la boleta, el sorteo de ese acumulado se efectuará el sábado 21 de noviembre de2026 con la Lotrería de Boyacá. Les desseamos la mejor de las suertes y gracias por su confianza.";
+  var msg = "Muy buenas noches, reciban un saludo de la Gran Rifa Navideña. Ayer 21 de noviembre de 2026 se realizó el sorteo del acumulado de $2.000.000 con la las tres ultimas cifras del Mayor de la Lotería de Boyaca, cuyo numero ganador fue el 914. Desafortunadamente no hubo ganador.Por lo anterior, se ha decidido vincular estos dos premios a las tres ultimas cifras del primer y segundo seco de la Loteria de Boyaca en la *Gran Final* del sorteo del 19 de diciembre de 2026. Gracias por su confianza y que tengan la mejor de las suertes!.";
   window.open("https://wa.me/"+tel+"?text="+encodeURIComponent(msg),"_blank");
 }
 
